@@ -1,4 +1,4 @@
-# DSCC — 25-06-26
+DSCC — 25-06-26
 
 Creating and pushing in a docker files.
 
@@ -6,87 +6,94 @@ Step1: Open Docker hub software.
 
 Step2: Also login in to your Dockerhub id via browser.
 
+
 1) Create a new folder:
 
+<img width="1602" height="311" alt="Step1" src="https://github.com/user-attachments/assets/585c802c-546f-4941-852e-28c9442c86d7" />
 i created DSCC.
 
 Inside the folder save a text file named "Dockerfile". (File should not have extensions).
 
+
 2) type "FROM ubuntu"
 
+<img width="1910" height="265" alt="step2" src="https://github.com/user-attachments/assets/ec279b6f-c525-4136-a046-c8df70400e86" />
 save the file.
+
 
 3) change directory this folder (DCSS in my case)
 
-```
 cd DSCC
-```
+
 
 4) Execute the below command. (Dockerfile is the filename)
 
-```
 docker build . < Dockerfile
-```
+
 
 5) type the command below:
 
-```
 docker image
-```
 
 You shall be getting something like this:
 
-![docker image output](images/step5.png)
+<img width="1918" height="743" alt="Step5" src="https://github.com/user-attachments/assets/f5b95bdb-e7ee-412d-a2e2-ecf69ff8cbcf" />
 
 6) I created another folder named "Folder 2" inside "DSCC" folder. You can name 2 seperate folders (it's your wish).
 
+<img width="1598" height="247" alt="Step6" src="https://github.com/user-attachments/assets/22c8e22e-ff88-4199-adda-4390d0ce1d54" />
+
 7) Open notepad and again create a file named "Dockerfile" in the new folder (Folder2):
 
-- save the file and now change directory to "Folder2" (as given in image).
 
-![folder2 directory](images/step7.png)
+save the file and now change directory to "Folder2" (as given in image).
 
-- also type the subsequent command as given in image.
 
-![step7 command](images/step7b.png)
+<img width="1918" height="922" alt="Step7" src="https://github.com/user-attachments/assets/8cf4c67d-9ca3-4833-9d67-19a5db780d94" />
+
+also type the subsequent command as given in image.
+
+
+<img width="1918" height="922" alt="Step7b" src="https://github.com/user-attachments/assets/1e760e8d-1b7f-4c30-a608-4ef78d942951" />
 
 8) Now you have 2 images stored in "Images" in docker. The icon is below:
 
-![docker images icon](images/step8.png)
+<img width="182" height="196" alt="Step8" src="https://github.com/user-attachments/assets/878a1052-e18c-437f-a556-8e01e4326e9b" />
 
 9) Run the image created and stored in Docker hub:
 
-![run image](images/step9.png)
+<img width="1467" height="652" alt="Step9" src="https://github.com/user-attachments/assets/b1273096-a569-4c57-b70f-796af2dd29c2" />
 
 10) Observe "Status" here, you will be getting something like "exited in 1 seconds".
 
+<img width="1336" height="218" alt="Step10" src="https://github.com/user-attachments/assets/25d99d12-acea-49eb-903f-a9f34d346a22" />
+
 11) Create new repo 'firstdockerimage' in repo at dockerhub.com
+
+<img width="1918" height="1031" alt="Step 11" src="https://github.com/user-attachments/assets/38d640ab-cc4f-4e53-bba2-fbbe039ecf9b" />
 
 12) Ensure the Repository is "Public".
 
+<img width="1918" height="1031" alt="Step12" src="https://github.com/user-attachments/assets/d42a7dab-7c35-4bf6-965d-5b905d9fd055" />
+
 13) Username/firstdockerimage is your repository name here.
 
-14) Run the command :
+<img width="1918" height="1031" alt="Step13" src="https://github.com/user-attachments/assets/5cd4709c-1aa2-4422-a9df-48170d8cb8d0" />
 
-```
+14) Run the command:
+
 docker tag demoimage Username/firstdockerimage
-```
 
 Here you can see the details of two images. (One from DCSS folder and another one from Folder2)
 
+<img width="1920" height="291" alt="Step14" src="https://github.com/user-attachments/assets/ceb78bf5-1314-4fd0-b1b5-d23d7373b21a" />
+
 15) Now push both the images with the below command:
 
-```
 docker image push -a  Username/firstdockerimage
-```
+
+<img width="1920" height="312" alt="Step15" src="https://github.com/user-attachments/assets/be039a8d-4ece-45be-8da4-818267587037" />
 
 16) Images are now pushed in docker hub repo. View the images in repo:
 
-![pushed images](images/step16.png)
-
----
-
-(Ignore)
-
-1. base image: FROM busybox
-2. Install the necessary library
+<img width="915" height="752" alt="Step16" src="https://github.com/user-attachments/assets/6258dd8c-fa7f-4644-91ec-183b3676da18" />
