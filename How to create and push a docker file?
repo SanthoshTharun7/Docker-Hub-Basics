@@ -2,6 +2,8 @@ DSCC — 25-06-26
 
 Creating and pushing in a docker files.
 
+Ensure the below:
+
 Step1: Open Docker hub software.
 
 Step2: Also login in to your Dockerhub id via browser.
