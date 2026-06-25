@@ -10,7 +10,7 @@ Step2: Also login in to your Dockerhub id via browser.
 1) Create a new folder:
 
 <img width="1602" height="311" alt="Step1" src="https://github.com/user-attachments/assets/585c802c-546f-4941-852e-28c9442c86d7" />
-i created DSCC.
+I created DSCC.
 
 Inside the folder save a text file named "Dockerfile". (File should not have extensions).
 
@@ -99,4 +99,4 @@ docker image push -a  Username/firstdockerimage
 <img width="915" height="752" alt="Step16" src="https://github.com/user-attachments/assets/6258dd8c-fa7f-4644-91ec-183b3676da18" />
 
 
-*You have successfully taken your first step in word of Dockers. Happy Learning :)
+*You have successfully taken your first step in world of Dockers. Happy Learning :)
