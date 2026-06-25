@@ -10,6 +10,7 @@ Step2: Also login in to your Dockerhub id via browser.
 1) Create a new folder:
 
 <img width="1602" height="311" alt="Step1" src="https://github.com/user-attachments/assets/585c802c-546f-4941-852e-28c9442c86d7" />
+
 I created DSCC.
 
 Inside the folder save a text file named "Dockerfile". (File should not have extensions).
@@ -18,6 +19,7 @@ Inside the folder save a text file named "Dockerfile". (File should not have ext
 2) type "FROM ubuntu"
 
 <img width="1910" height="265" alt="step2" src="https://github.com/user-attachments/assets/ec279b6f-c525-4136-a046-c8df70400e86" />
+
 save the file.
 
 
