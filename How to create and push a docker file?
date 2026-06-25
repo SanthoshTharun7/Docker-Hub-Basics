@@ -97,3 +97,6 @@ docker image push -a  Username/firstdockerimage
 16) Images are now pushed in docker hub repo. View the images in repo:
 
 <img width="915" height="752" alt="Step16" src="https://github.com/user-attachments/assets/6258dd8c-fa7f-4644-91ec-183b3676da18" />
+
+
+*You have successfully taken your first step in word of Dockers. Happy Learning :)
