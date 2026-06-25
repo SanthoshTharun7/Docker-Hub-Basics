@@ -28,7 +28,7 @@ save the file.
 
 ---
 
-**3) change directory this folder (DCSS in my case)**
+**3) change directory to this folder (DCSS in my case)**
 
 ```
 cd DSCC
