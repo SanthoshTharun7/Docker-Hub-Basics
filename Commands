@@ -79,6 +79,10 @@ docker run myimage
 op: santhosh
 ```
 
+Overriding :   docker run --env {key}:{value}
+
+**docker --> image --> container built from the image (has env variable).
+
 
 Inheritance: environmental variables inherited from a earlier stage or parent base image.
 
@@ -108,6 +112,18 @@ FROM base
 ```
 APP=myAPP
 ```
+
+
+
+7.WOKRDIR: cd version for docker. All other commands over (ORKDIR /app) directory.
+
+
+
+
+
+
+
+
 
 
 
