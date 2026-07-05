@@ -43,6 +43,18 @@ overriding is done here too.
 Inspect label:  docker image inspect --format='{{json .Config.Labels}}' myimage
 
 
+5.*COPY: copies file,dir from source(porject) to the dest.(docker image).
+
+Format: COPY src dest
+
+. : current directory in build context
+
+.. : current directory in image
+
+COPY ..   ==    COPY . /app  ==   WORKDIR /app
+
+
+
 
 
 
