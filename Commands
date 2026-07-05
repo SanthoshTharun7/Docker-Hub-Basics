@@ -1,6 +1,6 @@
 1. FROM : used for utuilizing a base image (pulled from docker hub) also specification of OS or programming language, over which additional layers of docker images are built.
 
-2. RUN : used to build new layer over base image.
+2. RUN : executes commands during image build to create new layer over base image.
 
 opitions: 
 
@@ -23,7 +23,7 @@ RUN --mount=type=ssh    : ssh key used only in build stage and removed after it.
 
 CMD ["executable", "param1"]  <--format
 
-executable : which tool or sw to be used. (permanent)
+executable : which tool or sw to be used. (default command)
 
 param1: over which it has to be used. (can be overridden)
 
@@ -43,20 +43,30 @@ overriding is done here too.
 Inspect label:  docker image inspect --format='{{json .Config.Labels}}' myimage
 
 
-5.*COPY: copies file,dir from source(porject) to the dest.(docker image).
+5.*COPY: copies file,dir from 'build context' to the dest.(docker image).
 
 Format: COPY src dest
 
-. : current directory in build context
+COPY . . 
 
-.. : current directory in image
+first dot : build context (project folder)
 
-COPY ..   ==    COPY . /app  ==   WORKDIR /app
+second dot: pwd in image.
 
+```
+WORKDIR /app 
+
+COPY . .  
+```
+above commands equal to the below command:
+
+```
+COPY . /app 
+```
 
 6.*ENV: sets envvironment variable in ky value pairs.
 
-format: ENV MY_NAME:"SANTY" MY_DEPT:"CYS"
+format: ENV MY_NAME ="SANTY" MY_DEPT="CYS"
 
 Persistence: environmental variable set using ENV will persisit if container run from resulting image.
 
@@ -79,7 +89,7 @@ docker run myimage
 op: santhosh
 ```
 
-Overriding :   docker run --env {key}:{value}
+Overriding :   docker run --env {key}={value}
 
 **docker --> image --> container built from the image (has env variable).
 
@@ -115,7 +125,7 @@ APP=myAPP
 
 
 
-7.WOKRDIR: cd version for docker. All other commands over (ORKDIR /app) directory.
+7.WOKRDIR: docker equivalent of linux cd command. All other commands over (ORKDIR /app) directory.
 
 
 
