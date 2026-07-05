@@ -1,0 +1,34 @@
+1. FROM : used for utuilizing a base image (pulled from docker hub) also specification of OS or programming language, over which additional layers of docker images are built.
+
+2. RUN : used to build new layer over base image.
+
+opitions: 
+
+i) --device
+
+ii) --mount (analogy of a pendrive), gives the container extra things to access.
+
+RUN --mount=type=cache  : prev. build stored as cache, speeds up future build of same thing.
+
+RUN --mount=type=secret  : api key not stored in built image, only used during build and then removed.
+
+RUN --mount=type=ssh    : ssh key used only in build stage and removed after it. (to clone pvt repo).
+
+--network 
+
+--security
+
+
+3.CMD: tells the cmd which has to be run by the container.
+
+CMD ["executable", "param1"]  <--format
+
+executable : which tool or sw to be used. (permanent)
+
+param1: over which it has to be used. (can be overridden)
+
+eg: CMD ["python", "app.py"]  --> python runs app.py
+
+docker run image hello.py ---> python now instead runs hello.py
+
+
