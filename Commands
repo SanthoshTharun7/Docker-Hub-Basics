@@ -54,6 +54,63 @@ Format: COPY src dest
 COPY ..   ==    COPY . /app  ==   WORKDIR /app
 
 
+6.*ENV: sets envvironment variable in ky value pairs.
+
+format: ENV MY_NAME:"SANTY" MY_DEPT:"CYS"
+
+Persistence: environmental variable set using ENV will persisit if container run from resulting image.
+
+eg:
+```
+FROM ubuntu
+
+ENV NAME=santhosh
+```
+
+```
+now build:  docker build -t myimage .
+```
+
+```
+docker run myimage    
+````
+
+```
+op: santhosh
+```
+
+
+Inheritance: environmental variables inherited from a earlier stage or parent base image.
+
+stage 1
+```
+FROM ubuntu as base
+```
+
+```
+ENV APP=myAPP
+```
+
+```
+FROM base
+```
+
+```
+RUN echo $APP
+```
+
+stage 2:
+
+```
+FROM base
+```
+
+```
+APP=myAPP
+```
+
+
+
 
 
 
