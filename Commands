@@ -29,8 +29,12 @@ param1: over which it has to be used. (can be overridden)
 
 eg: CMD ["python", "app.py"]  --> python runs app.py
 
-docker run image hello.py ---> python now instead runs hello.py
 
+-below command valid only if ENTRYPOINT ["python"], CMD["app.py"]
+
+```
+docker run image hello.py ---> python now instead runs hello.py
+```
 
 4.*LABEL: metadata about the image (in key:value pairs)
 
@@ -66,7 +70,7 @@ COPY . /app
 
 6.*ENV: sets envvironment variable in ky value pairs.
 
-format: ENV MY_NAME ="SANTY" MY_DEPT="CYS"
+format: ENV MY_NAME="SANTY" MY_DEPT="CYS"
 
 Persistence: environmental variable set using ENV will persisit if container run from resulting image.
 
