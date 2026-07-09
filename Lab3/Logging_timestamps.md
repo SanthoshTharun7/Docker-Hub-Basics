@@ -1,4 +1,4 @@
-DSCC Lab3 Task 2                                                                                                    09-07-2026
+DSCC Lab3 Task 2                                                                                                       09-07-2026
 
 Capturing time stamps in a log.txt file.
 
