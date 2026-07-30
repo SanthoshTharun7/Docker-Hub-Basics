@@ -1,54 +1,102 @@
-Docker Database Connector Assignment
+# Docker Database Connector Assignment
 
-Objective
+## Objective
 
-Build a Docker image for a Python Flask application that connects to aMySQL database running on XAMPP.
+Build a Docker image for a Python Flask application that connects to a MySQL database running on XAMPP and displays employee records.
 
-Project Structure
+---
 
+# Project Structure
+
+```text
 DatabaseConnector/
+│
 ├── Dockerfile
 ├── app.py
 └── requirements.txt
+```
 
-requirements.txt
+---
 
+# Step 1: Create requirements.txt
+
+Create a file named `requirements.txt`.
+
+```text
 Flask
 mysql-connector-python
+```
 
-Dockerfile
+---
 
+# Step 2: Create Dockerfile
+
+```dockerfile
+# Use official Python image
 FROM python:3.12-slim
 
+# Set working directory
 WORKDIR /app
 
+# Copy dependency file
 COPY requirements.txt .
+
+# Install required packages
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy application source code
 COPY app.py .
 
+# Environment variables
 ENV DB_HOST=host.docker.internal
 ENV DB_PORT=3306
 ENV DB_USER=dockeruser
 ENV DB_PASSWORD=password123
 ENV DB_NAME=company
 
+# Expose Flask application
 EXPOSE 8080
 
+# Run application
 CMD ["python","app.py"]
+```
 
-Create MySQL User
+---
 
-In phpMyAdmin:
+# Step 3: Create MySQL Database
 
-CREATE USER 'dockeruser'@'localhost' IDENTIFIED BY 'password123';
+Open **phpMyAdmin**.
 
-GRANT ALL PRIVILEGES ON company.* TO 'dockeruser'@'localhost';
+Create a database named:
+
+```text
+company
+```
+
+---
+
+# Step 4: Create MySQL User
+
+Run the following SQL query:
+
+```sql
+CREATE USER 'dockeruser'@'localhost'
+IDENTIFIED BY 'password123';
+
+GRANT ALL PRIVILEGES
+ON company.*
+TO 'dockeruser'@'localhost';
 
 FLUSH PRIVILEGES;
+```
 
-Create Database and Table
+---
 
+# Step 5: Create Employee Table
+
+Run:
+
+```sql
 USE company;
 
 CREATE TABLE employeese(
@@ -56,81 +104,241 @@ CREATE TABLE employeese(
     name VARCHAR(50),
     department VARCHAR(50)
 );
+```
 
-INSERT INTO employeese(name, department)
+---
+
+# Step 6: Insert Sample Records
+
+```sql
+INSERT INTO employeese(name,department)
 VALUES
 ('Alice','HR'),
 ('Bob','IT'),
 ('Charlie','Finance');
+```
 
-Build Docker Image
+---
 
+# Step 7: Create app.py
+
+```python
+from flask import Flask
+import mysql.connector
+import os
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    try:
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            port=int(os.getenv("DB_PORT")),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
+
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM employeese")
+        rows = cursor.fetchall()
+
+        html = """
+        <html>
+        <head>
+        <title>Database Connector</title>
+        </head>
+        <body style="font-family:Arial;margin:40px;">
+        <h1>Database Connected Successfully ✅</h1>
+
+        <h2>Employee Details</h2>
+
+        <table border="1" cellpadding="10">
+        <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        </tr>
+        """
+
+        for row in rows:
+            html += f"""
+            <tr>
+            <td>{row[0]}</td>
+            <td>{row[1]}</td>
+            <td>{row[2]}</td>
+            </tr>
+            """
+
+        html += """
+        </table>
+        </body>
+        </html>
+        """
+
+        cursor.close()
+        conn.close()
+
+        return html
+
+    except Exception as e:
+        return f"<h2>Database Connection Failed ❌</h2><pre>{e}</pre>"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
+```
+
+---
+
+# Step 8: Build Docker Image
+
+```bash
 docker build -t dbconnector .
+```
 
-Run Container
+---
 
+# Step 9: Run Docker Container
+
+```bash
 docker run --add-host=host.docker.internal:host-gateway -p 8080:8080 dbconnector
+```
 
-Explanation
+---
 
-docker run starts a container.
+# Explanation of the Run Command
 
---add-host=host.docker.internal:host-gateway creates the hostnamehost.docker.internal inside the container so it can reach the hostmachine (where XAMPP MySQL is running).
+## docker run
 
--p 8080:8080 maps host port 8080 to container port 8080.
+Creates and starts a new Docker container.
 
-dbconnector is the Docker image name.
+---
 
-Push to Docker Hub
+## --add-host=host.docker.internal:host-gateway
 
+Adds an entry inside the container so that:
+
+```text
+host.docker.internal
+```
+
+points to the **host machine**.
+
+Since MySQL is running in **XAMPP on the host**, the container uses this hostname to access the database.
+
+Without this option, the container cannot access the host's MySQL server.
+
+---
+
+## -p 8080:8080
+
+Maps ports.
+
+```text
+Host Port : Container Port
+```
+
+```
+8080 : 8080
+```
+
+This allows the Flask application running inside the container to be accessed from:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## dbconnector
+
+Name of the Docker image created using:
+
+```bash
+docker build -t dbconnector .
+```
+
+---
+
+# Push Image to Docker Hub
+
+Login:
+
+```bash
 docker login
+```
 
+Tag image:
+
+```bash
 docker tag dbconnector santhoshtharun7/db-conn-dockerimage:latest
+```
 
+Push image:
+
+```bash
 docker push santhoshtharun7/db-conn-dockerimage:latest
+```
 
-Result
+Docker Hub Repository:
+
+```text
+https://hub.docker.com/r/santhoshtharun7/db-conn-dockerimage
+```
+
+---
+
+# Troubleshooting
+
+## Port already allocated
+
+```bash
+docker ps
+
+docker stop <container_id>
+
+docker rm <container_id>
+```
+
+---
+
+## Database connection failed
+
+Check:
+
+- MySQL server is running.
+- Username and password are correct.
+- `DB_HOST=host.docker.internal`
+- Database exists.
+- Table `employeese` exists.
+- Records are inserted.
+
+---
+
+# Final Output
 
 Open:
 
+```text
 http://localhost:8080
+```
 
-Expected output:
+Expected webpage:
 
-Database Connected Successfully
+```
+Database Connected Successfully ✅
 
-Employee Details
+<img width="1920" height="990" alt="Screenshot From 2026-07-31 00-02-08" src="https://github.com/user-attachments/assets/a5697380-35c8-46ba-ac2e-ced3dd627aff" />
 
-Alice - HR
+```
 
-Bob - IT
+---
 
-Charlie - Finance
+# Commands Summary
 
-Troubleshooting
-
-Port already allocated
-
-docker ps
-docker stop <container_id>
-docker rm <container_id>
-
-Or run on another port:
-
-docker run -p 8081:8080 dbconnector
-
-Access denied
-
-Verify MySQL username and password.
-
-Grant privileges to the MySQL user.
-
-Ensure DB_HOST points to host.docker.internal.
-
-Rebuild the image after Dockerfile changes.
-
-Commands Summary
-
+```bash
 docker build -t dbconnector .
 
 docker run --add-host=host.docker.internal:host-gateway -p 8080:8080 dbconnector
@@ -148,3 +356,4 @@ docker login
 docker tag dbconnector santhoshtharun7/db-conn-dockerimage:latest
 
 docker push santhoshtharun7/db-conn-dockerimage:latest
+```
