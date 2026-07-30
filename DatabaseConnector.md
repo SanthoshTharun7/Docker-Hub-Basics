@@ -330,9 +330,11 @@ Expected webpage:
 ```
 Database Connected Successfully ✅
 
+```
+
 <img width="1920" height="990" alt="Screenshot From 2026-07-31 00-02-08" src="https://github.com/user-attachments/assets/a5697380-35c8-46ba-ac2e-ced3dd627aff" />
 
-```
+
 
 ---
 
